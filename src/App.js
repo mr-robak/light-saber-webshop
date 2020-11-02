@@ -1,11 +1,14 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import { Route, Switch } from "react-router-dom";
+import LoginPage from "./pages/LoginPage";
+import ProductPage from "./pages/ProductPage";
+import HomePage from "./pages/HomePage";
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
+      {/* <header className="App-header">
+       
         <p>
           Edit <code>src/App.js</code> and save to reload.
         </p>
@@ -17,7 +20,13 @@ function App() {
         >
           Learn React
         </a>
-      </header>
+      </header> */}
+
+      <Switch>
+        <Route path="/login" component={LoginPage} />
+        <Route path="/product" component={ProductPage} />
+        <Route path="/" component={HomePage} />
+      </Switch>
     </div>
   );
 }
