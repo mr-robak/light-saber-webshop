@@ -4,6 +4,7 @@ import LoginPage from "./pages/LoginPage";
 import ProductPage from "./pages/ProductPage";
 import HomePage from "./pages/HomePage";
 import NavBar from "./components/NavBar";
+import AdminDashboard from "./pages/AdminDashboard";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
       </header> */}
       <NavBar />
       <Switch>
+        <Route path="/admin" component={AdminDashboard} />
         <Route path="/login" component={LoginPage} />
         <Route path="/product" component={ProductPage} />
         <Route path="/" component={HomePage} />

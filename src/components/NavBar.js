@@ -54,7 +54,7 @@ export default function NavBar() {
                 color: "red",
               }}
             >
-              FAQs
+              Login
             </NavLink>
           </Button>
         </Toolbar>
