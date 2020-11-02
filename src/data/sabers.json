@@ -1,0 +1,24 @@
+{
+    "sabers" ​ :[
+    {
+    " ​ id" : ​ 4456,
+    " ​ name" : ​ "Sith Saber",
+    " ​ available" : ​ 27,
+    " ​ crystal" : ​ {
+    "name" ​ :"Kadril saber",
+    "color" : ​ "red",
+    "planet" : ​ 13
+    }
+    },
+    {
+    " ​ id" : ​ 7766,
+    " ​ name" : ​ "Master Jedi Saber",
+    " ​ available" : ​ 13,
+    " ​ crystal" : ​ {
+    "name" ​ :"Obi Wan saber",
+    "color" : ​ "green",
+    "planet" : ​ 12
+    }
+    }
+    ]
+    }
