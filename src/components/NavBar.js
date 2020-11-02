@@ -37,7 +37,7 @@ export default function NavBar() {
           </IconButton>
           <Typography variant="h6" className={classes.title}>
             <NavLink
-              to="/faq"
+              to="/"
               activeStyle={{
                 fontWeight: "bold",
                 color: "red",

@@ -4,15 +4,24 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter as Router } from "react-router-dom";
+import { StateProvider } from "./store/store.js";
+import { debugContextDevtool } from "react-context-devtool";
+
+const container = document.getElementById("root");
 
 ReactDOM.render(
   <Router>
     <React.StrictMode>
-      <App />
+      <StateProvider>
+        <App />
+      </StateProvider>
     </React.StrictMode>
   </Router>,
-  document.getElementById("root")
+  container
 );
+
+// Attach root container
+debugContextDevtool(container);
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))

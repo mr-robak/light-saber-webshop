@@ -1,33 +1,17 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import ProductCard from "../components/ProductCard";
+import Loading from "../components/Loading";
+import { store } from "../store/store.js";
 import data from "../data/sabers.json";
 
-// let data = {
-//   sabers: [
-//     {
-//       id: 4456,
-//       name: "Sith Saber",
-//       available: 27,
-//       crystal: {
-//         name: "Kadril saber",
-//         color: "red",
-//         planet: 13,
-//       },
-//     },
-//     {
-//       id: 7766,
-//       name: "Master Jedi Saber",
-//       available: 13,
-//       crystal: {
-//         name: "Obi Wan saber",
-//         color: "green",
-//         planet: 12,
-//       },
-//     },
-//   ],
-// };
-
 export default function HomePage() {
+  const globalState = useContext(store);
+  const { dispatch } = globalState;
+
+  useEffect(() => {
+    dispatch({ type: "PRODUCTS_FETCHED", payload: data });
+  }, [dispatch]);
+
   const renderCard = (data) => {
     return data.sabers.map((product, index) => {
       // console.log("rendered at HomePage", index, product.name);
@@ -36,10 +20,6 @@ export default function HomePage() {
   };
 
   return (
-    <div className="HomePage">
-      {data ? renderCard(data) : console.log("loading...")}
-      {/* {data && renderCard(data)} */}
-      {/* <p>{data.sabers[0].name}</p> */}
-    </div>
+    <div className="HomePage">{data ? renderCard(data) : <Loading />}</div>
   );
 }
