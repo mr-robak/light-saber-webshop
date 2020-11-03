@@ -11,11 +11,11 @@ const container = document.getElementById("root");
 
 ReactDOM.render(
   <Router>
-    <React.StrictMode>
-      <StateProvider>
+    <StateProvider>
+      <React.StrictMode>
         <App />
-      </StateProvider>
-    </React.StrictMode>
+      </React.StrictMode>
+    </StateProvider>
   </Router>,
   container
 );

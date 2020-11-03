@@ -1,25 +1,23 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import ProductCard from "../components/ProductCard";
 import Loading from "../components/Loading";
 import { store } from "../store/store.js";
-import data from "../data/sabers.json";
 
 export default function HomePage() {
-  const globalState = useContext(store);
-  const { dispatch } = globalState;
+  const { state } = useContext(store);
 
-  useEffect(() => {
-    dispatch({ type: "PRODUCTS_FETCHED", payload: data });
-  }, [dispatch]);
+  // console.log(state.isLoading);
 
-  const renderCard = (data) => {
-    return data.sabers.map((product, index) => {
-      // console.log("rendered at HomePage", index, product.name);
+  const renderCards = () => {
+    return state.sabers.map((product, index) => {
+      console.log("rendered at HomePage", index, product.name);
       return <ProductCard data={product} key={index} />;
     });
   };
 
   return (
-    <div className="HomePage">{data ? renderCard(data) : <Loading />}</div>
+    <div className="HomePage">
+      {state && state.isLoading ? <Loading /> : renderCards()}
+    </div>
   );
 }

@@ -1,6 +1,7 @@
 import { Button, Grid, makeStyles, TextField } from "@material-ui/core";
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useContext, useState } from "react";
+import { Link, useHistory } from "react-router-dom";
+import { store } from "../store/store.js";
 
 const useStyles = makeStyles({
   root: {
@@ -12,12 +13,49 @@ const useStyles = makeStyles({
 });
 
 export default function LoginPage() {
+  const history = useHistory();
   const classes = useStyles();
+  const { state, dispatch } = useContext(store);
 
   const [name, setName] = useState("");
-  const [age, setAge] = useState("");
+  const [age, setAge] = useState();
+  const [error, setError] = useState({ name: false, age: false });
 
-  console.log("name", name);
+  // console.log("state at LoginPage", state);
+
+  // useEffect(() => {
+  //   if (token !== null) {
+  //     history.push("/");
+  //   }
+  // }, [token, history]);
+
+  const submitForm = (e) => {
+    // console.log("event fired");
+    e.preventDefault();
+    if (name === "") {
+      setError({ ...error, name: true });
+    } else if (error.age === "") {
+      setError({ ...error, age: true });
+    } else if (!error.name && !error.age) {
+      dispatch({ type: "USER_LOGIN", payload: { name: name, age: age } });
+      setName("");
+      setAge("");
+      history.push("/");
+    }
+  };
+
+  // console.log("name", name);
+
+  const checkAge = (e) => {
+    e.preventDefault();
+    if (e.target.value > 140 || e.target.value <= 0) {
+      setError({ ...error, age: true });
+      setAge("");
+    } else {
+      setError({ ...error, age: false });
+      setAge(e.target.value);
+    }
+  };
 
   return (
     <div className={classes.root}>
@@ -33,12 +71,14 @@ export default function LoginPage() {
             required
             id="outlined-required"
             label="Name"
-            // defaultValue=""
             variant="outlined"
             value={name}
             onChange={(e) => {
+              setError({ ...error, name: false });
               setName(e.target.value);
             }}
+            error={error.name}
+            helperText={error.name ? "Please enter your name" : null}
           />
         </Grid>
         <Grid item>
@@ -52,12 +92,16 @@ export default function LoginPage() {
             }}
             variant="outlined"
             value={age}
-            onChange={(e) => {
-              setAge(e.target.value);
-            }}
+            onChange={(e) => checkAge(e)}
+            error={error.age}
+            helperText={error.age ? "Enter values between 0 ... 140" : null}
           />
         </Grid>
-        <Button variant="contained" color="primary" href="#contained-buttons">
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={(e) => submitForm(e)}
+        >
           Login
         </Button>
         <Link to="/admin">Login as admin?</Link>

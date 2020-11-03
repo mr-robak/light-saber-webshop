@@ -42,12 +42,19 @@ const StateProvider = ({ children }) => {
         const newState = { ...state, ...sabers, isLoading: false };
         return newState;
       }
-      case "LOGIN": {
+      case "USER_LOGIN": {
         const newState = { ...state, user: { ...action.payload } };
-        console.log("newState", newState);
-        // return newState;
-        // console.log("reducer", action.payload);
-        return state;
+        // console.log("reducer", newState);
+        return newState;
+      }
+      case "LOGOUT": {
+        const newState = {
+          isLoading: true,
+          saber: state.sabers,
+        };
+        console.log("oldState store", state);
+        console.log("newState store1", newState);
+        return newState;
       }
 
       default:

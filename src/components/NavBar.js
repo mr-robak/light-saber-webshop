@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -6,7 +6,8 @@ import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
+import { store } from "../store/store.js";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -23,40 +24,49 @@ const useStyles = makeStyles((theme) => ({
 export default function NavBar() {
   const classes = useStyles();
 
+  const { state, dispatch } = useContext(store);
+
+  const logout = () => {
+    dispatch({ type: "LOGOUT" });
+  };
+
   return (
     <div className={classes.root}>
       <AppBar position="static">
         <Toolbar>
-          <IconButton
-            edge="start"
-            className={classes.menuButton}
-            color="inherit"
-            aria-label="menu"
-          >
-            <MenuIcon />
-          </IconButton>
           <Typography variant="h6" className={classes.title}>
             <NavLink
               to="/"
+              style={{ textDecoration: "none", color: "white" }}
               activeStyle={{
                 fontWeight: "bold",
-                color: "red",
+                color: "white",
               }}
             >
               PON Lightsabres B.V.
             </NavLink>
           </Typography>
-          <Button color="inherit">
-            <NavLink
-              to="/login"
-              activeStyle={{
-                fontWeight: "bold",
-                color: "red",
-              }}
-            >
-              Login
-            </NavLink>
-          </Button>
+          {!state.user ? (
+            <Button color="inherit">
+              <NavLink
+                to="/login"
+                style={{ textDecoration: "none", color: "white" }}
+                activeStyle={{
+                  fontWeight: "bold",
+                  color: "yellow",
+                }}
+              >
+                Login
+              </NavLink>
+            </Button>
+          ) : (
+            <Button color="inherit" onClick={logout}>
+              Logout
+            </Button>
+          )}
+          {/* <Button color="inherit" onClick={logout}>
+            Logout
+          </Button> */}
         </Toolbar>
       </AppBar>
     </div>

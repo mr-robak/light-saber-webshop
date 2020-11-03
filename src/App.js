@@ -1,5 +1,7 @@
-import "./App.css";
+import { useContext, useEffect, useState } from "react";
 import { Route, Switch } from "react-router-dom";
+import { store } from "./store/store.js";
+import data from "./data/sabers.json";
 
 import LoginPage from "./pages/LoginPage";
 import ProductPage from "./pages/ProductPage";
@@ -7,7 +9,73 @@ import HomePage from "./pages/HomePage";
 import NavBar from "./components/NavBar";
 import AdminDashboard from "./pages/AdminDashboard";
 
+import "./App.css";
+import { makeStyles, Snackbar } from "@material-ui/core";
+import MuiAlert from "@material-ui/lab/Alert";
+
+const useStyles = makeStyles({
+  root: {
+    flexGrow: 1,
+    // maxWidth: 280,
+    // color: "black",
+    marginTop: "15%",
+  },
+  notification: {
+    marginTop: 50,
+    // backgroundColor: "green",
+    // color: "green",
+  },
+});
+
 function App() {
+  const classes = useStyles();
+
+  const { state, dispatch } = useContext(store);
+  console.log("App", state);
+
+  useEffect(() => {
+    if (!state.sabers) {
+      console.log("re - dispatch", state.sabers);
+      dispatch({ type: "PRODUCTS_FETCHED", payload: data });
+    }
+  });
+
+  // const handleClick = (newState) => () => {
+  //   setState({ open: true, ...newState });
+  // };
+
+  const [open, setOpen] = useState(true);
+
+  const handleClose = (e) => {
+    setTimeout(setOpen(false), 3000);
+  };
+
+  const notificationAlert = () => {
+    if (!state.user) {
+      // setOpen(true);
+      console.log("state.user", state.user);
+      return null;
+    }
+
+    return (
+      <Snackbar
+        className={classes.notification}
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+        open={open}
+        // autoHideDuration={6000}
+        // onClose={(e) => setOpen(false)}
+        // message={}
+        // key={"logged in"}
+        onClose={handleClose}
+      >
+        <MuiAlert severity="success">
+          {/* `You are logged in, ${state.user.name}` */}
+          TEST
+        </MuiAlert>
+      </Snackbar>
+    );
+  };
+
   return (
     <div className="App">
       {/* <header className="App-header">
@@ -25,10 +93,12 @@ function App() {
         </a>
       </header> */}
       <NavBar />
+      {/* <p>Login successful</p>  */}
+      {state.user ? notificationAlert() : null}
       <Switch>
         <Route path="/admin" component={AdminDashboard} />
         <Route path="/login" component={LoginPage} />
-        <Route path="/product" component={ProductPage} />
+        <Route path="/product/:id" component={ProductPage} />
         <Route path="/" component={HomePage} />
       </Switch>
     </div>
