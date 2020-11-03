@@ -37,7 +37,10 @@ export default function NavBar() {
           <Typography variant="h6" className={classes.title}>
             <NavLink
               to="/"
-              style={{ textDecoration: "none", color: "white" }}
+              style={{
+                textDecoration: "none",
+                color: "white",
+              }}
               activeStyle={{
                 fontWeight: "bold",
                 color: "white",

@@ -8,9 +8,13 @@ import CardMedia from "@material-ui/core/CardMedia";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 
+import blue from "../assets/blue1.jpg";
+import green from "../assets/green1.jpg";
+import red from "../assets/red1.jpg";
+
 const useStyles = makeStyles({
   root: {
-    maxWidth: 280,
+    maxWidth: 250,
     // color: "black",
     margin: 10,
   },
@@ -22,7 +26,18 @@ export default function ProductCard(props) {
   // console.log("card props", props.data);
   const { name, crystal } = props.data;
 
-  // return <p>card</p>;
+  const assignImage = () => {
+    switch (crystal.color) {
+      case "blue":
+        return blue;
+      case "green":
+        return green;
+      case "red":
+        return red;
+      default:
+        break;
+    }
+  };
 
   return (
     <Card className={classes.root}>
@@ -31,7 +46,8 @@ export default function ProductCard(props) {
           component="img"
           alt={name}
           height="140"
-          image="/static/images/cards/contemplative-reptile.jpg"
+          // image={`${crystal.color}1.jpg`}
+          image={assignImage()}
           title={name}
         />
         <CardContent>
