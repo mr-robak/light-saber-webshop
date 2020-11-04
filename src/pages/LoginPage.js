@@ -18,7 +18,7 @@ export default function LoginPage() {
   const { state, dispatch } = useContext(store);
 
   const [name, setName] = useState("");
-  const [age, setAge] = useState();
+  const [age, setAge] = useState("");
   const [error, setError] = useState({ name: false, age: false });
 
   // console.log("state at LoginPage", state);

@@ -12,6 +12,7 @@ import AdminDashboard from "./pages/AdminDashboard";
 import "./App.css";
 import { makeStyles, Snackbar } from "@material-ui/core";
 import MuiAlert from "@material-ui/lab/Alert";
+import ShoppingCartPage from "./pages/ShoppingCartPage.js";
 
 const useStyles = makeStyles({
   root: {
@@ -31,14 +32,14 @@ function App() {
   const classes = useStyles();
 
   const { state, dispatch } = useContext(store);
-  console.log("App", state);
+  // console.log("App", state);
 
   useEffect(() => {
     if (!state.sabers) {
       console.log("re - dispatch", state.sabers);
       dispatch({ type: "PRODUCTS_FETCHED", payload: data });
     }
-  });
+  }, []);
 
   // const handleClick = (newState) => () => {
   //   setState({ open: true, ...newState });
@@ -49,6 +50,8 @@ function App() {
   const handleClose = (e) => {
     setTimeout(setOpen(false), 3000);
   };
+
+  console.log("APP RENDERED");
 
   const notificationAlert = () => {
     if (!state.user) {
@@ -96,6 +99,7 @@ function App() {
       {/* <p>Login successful</p>  */}
       {state.user ? notificationAlert() : null}
       <Switch>
+        <Route path="/cart" component={ShoppingCartPage} />
         <Route path="/admin" component={AdminDashboard} />
         <Route path="/login" component={LoginPage} />
         <Route path="/product/:id" component={ProductPage} />
