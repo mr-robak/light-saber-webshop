@@ -1,12 +1,11 @@
 import React, { useContext } from "react";
 import IconButton from "@material-ui/core/IconButton";
-import Icon from "@material-ui/core/Icon";
 import RemoveCircleOutlineRoundedIcon from "@material-ui/icons/RemoveCircleOutlineRounded";
 import { red } from "@material-ui/core/colors";
 import { store } from "../store/store.js";
 
 export default function DeductItem(props) {
-  const { state, dispatch } = useContext(store);
+  const { dispatch } = useContext(store);
 
   const handleOnClick = (e) => {
     dispatch({

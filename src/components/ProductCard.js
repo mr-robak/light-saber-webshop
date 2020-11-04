@@ -1,4 +1,6 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import Axios from "axios";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardActionArea from "@material-ui/core/CardActionArea";
@@ -25,12 +27,24 @@ const useStyles = makeStyles({
 export default function ProductCard(props) {
   const classes = useStyles();
   const { state, dispatch } = useContext(store);
+  const [planet, setPlanet] = useState("");
+
+  const { id, name, crystal } = props.data;
+
+  useEffect(() => {
+    Axios.get(`https://swapi.dev/api/planets/${crystal.planet}/`)
+      .then(function (response) {
+        setPlanet(response.data.name);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }, [id]);
 
   let creditMod;
   let forceMod;
 
   // console.log("card props", props.data);
-  const { name, crystal } = props.data;
 
   const assignImage = () => {
     switch (crystal.color) {
@@ -82,6 +96,9 @@ export default function ProductCard(props) {
         </Typography>
         <Typography variant="body2" color="textSecondary" component="p">
           Force usage: {forceUsage}
+        </Typography>{" "}
+        <Typography variant="body2" color="textSecondary" component="p">
+          Planet: {planet}
         </Typography>
         <Button size="small" color="primary" onClick={addToCart}>
           Add to cart
@@ -93,6 +110,7 @@ export default function ProductCard(props) {
   return (
     <Card className={classes.root}>
       <CardActionArea>
+        {/* <Link to={`product/${id}`}> */}
         <CardMedia
           component="img"
           alt={name}
@@ -101,14 +119,17 @@ export default function ProductCard(props) {
           image={assignImage()}
           title={name}
         />
+        {/* </Link> */}
         <CardContent>
           <Typography gutterBottom variant="h5" component="h2">
             {name}
           </Typography>
           {!state.user ? (
-            <Typography variant="body2" color="textSecondary" component="p">
-              Login to show price
-            </Typography>
+            <Link to="/login">
+              <Typography variant="body2" color="textSecondary" component="p">
+                Login to show price
+              </Typography>
+            </Link>
           ) : (
             showPrice()
           )}

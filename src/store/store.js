@@ -39,7 +39,7 @@ const StateProvider = ({ children }) => {
     switch (action.type) {
       case "PRODUCTS_FETCHED": {
         const sabers = { ...action.payload };
-        // console.log("payload", sabers);
+        // console.log("payload", action.payload);
         const newState = { ...state, ...sabers, isLoading: false };
         return newState;
       }
@@ -49,16 +49,13 @@ const StateProvider = ({ children }) => {
         return newState;
       }
       case "LOGOUT": {
-        const newState = {
-          isLoading: true,
-          saber: state.sabers,
-        };
-        console.log("oldState store", state);
-        console.log("newState store1", newState);
+        const newState = { isLoading: true, cart: [] };
+        // console.log("oldState store", state);
+        // console.log("newState store1", newState);
         return newState;
       }
       case "ADD_TO_CART": {
-        const { id, price } = action.payload;
+        const { id } = action.payload;
 
         // console.log("ADD_TO_CART", action.payload);
         const productInCart = state.cart.find((product) => product.id === id);
@@ -91,6 +88,10 @@ const StateProvider = ({ children }) => {
               );
         console.log("newCart after deduct", updatedCart);
         return { ...state, cart: [...updatedCart] };
+      }
+      case "EMPTY_CART": {
+        console.log("EMPTY_CART");
+        return { ...state, cart: [] };
       }
 
       default:

@@ -1,5 +1,7 @@
 import React, { useContext, useEffect } from "react";
 import { useHistory } from "react-router-dom";
+import Axios from "axios";
+
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
@@ -8,9 +10,11 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import { Button, makeStyles } from "@material-ui/core";
-import { store } from "../store/store.js";
 import DeductItem from "../components/DeductItem.js";
 import AddItem from "../components/AddItem.js";
+
+import { store } from "../store/store.js";
+import { Alert } from "@material-ui/lab";
 
 const useStyles = makeStyles({
   table: {
@@ -21,7 +25,7 @@ const useStyles = makeStyles({
 });
 
 export default function ShoppingCartPage() {
-  const { state } = useContext(store);
+  const { state, dispatch } = useContext(store);
   const history = useHistory();
 
   const classes = useStyles();
@@ -44,14 +48,26 @@ export default function ShoppingCartPage() {
   const invoiceTotal = shippingCost + invoiceSubtotal;
 
   const submitOrder = () => {
-    const order = { user: state.user, cart: state.cart };
+    const order = { date: new Date(), user: state.user, cart: state.cart };
     console.log("order", order);
+    Axios({
+      method: "post",
+      url: "http://localhost:4000/orders",
+      data: order,
+    })
+      .then(function (response) {
+        console.log("response", response);
+        if (response.status === 200) {
+          alert("Order submitted");
+          dispatch({ type: "EMPTY_CART" });
+          history.push("/");
+        }
+      })
+      .catch(function (error) {
+        console.log("error", error);
+      });
 
-    // const order = {
-    //   date: new Date(),
-
-    // }
-    console.log("order submitted");
+    // console.log("order submitted");
   };
 
   return (

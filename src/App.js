@@ -13,6 +13,7 @@ import "./App.css";
 import { makeStyles, Snackbar } from "@material-ui/core";
 import MuiAlert from "@material-ui/lab/Alert";
 import ShoppingCartPage from "./pages/ShoppingCartPage.js";
+import Axios from "axios";
 
 const useStyles = makeStyles({
   root: {
@@ -28,6 +29,8 @@ const useStyles = makeStyles({
   },
 });
 
+// console.log("!!!!!!!!!!!!!!!", data);
+
 function App() {
   const classes = useStyles();
 
@@ -35,11 +38,14 @@ function App() {
   // console.log("App", state);
 
   useEffect(() => {
-    if (!state.sabers) {
-      console.log("re - dispatch", state.sabers);
-      dispatch({ type: "PRODUCTS_FETCHED", payload: data });
-    }
-  }, []);
+    Axios.get("http://localhost:4000/products ")
+      .then(function (response) {
+        dispatch({ type: "PRODUCTS_FETCHED", payload: response.data });
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }, [dispatch, state.sabers]);
 
   // const handleClick = (newState) => () => {
   //   setState({ open: true, ...newState });
