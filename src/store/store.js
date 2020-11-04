@@ -82,10 +82,10 @@ const StateProvider = ({ children }) => {
         console.log("DEDUCT_FROM_CART", action.payload);
 
         const productInCart = state.cart.find((product) => product.id === id);
-
+        console.log("productInCart", productInCart);
         const updatedCart =
           parseInt(productInCart.amount) === 1
-            ? [state.cart.filter((i) => i.id === id)]
+            ? state.cart.filter((i) => i.id !== id)
             : state.cart.map((i) =>
                 i.id === id ? { ...i, amount: i.amount - 1 } : i
               );

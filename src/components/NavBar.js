@@ -51,16 +51,18 @@ export default function NavBar() {
               Lightsabres Deluxe B.V.
             </NavLink>
           </Typography>
-          <IconButton aria-label="cart">
-            <Link to="/cart">
-              <Badge badgeContent={state.cart.length} color="secondary">
-                <ShoppingCartRoundedIcon
-                  style={{ color: "white" }}
-                  fontSize="large"
-                />
-              </Badge>
-            </Link>
-          </IconButton>
+          {state.cart.length > 0 ? (
+            <IconButton aria-label="cart">
+              <Link to="/cart">
+                <Badge badgeContent={state.cart.length} color="secondary">
+                  <ShoppingCartRoundedIcon
+                    style={{ color: "white" }}
+                    fontSize="large"
+                  />
+                </Badge>
+              </Link>
+            </IconButton>
+          ) : null}
           {!state.user ? (
             <IconButton color="inherit">
               <NavLink

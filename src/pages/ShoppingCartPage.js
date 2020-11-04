@@ -1,4 +1,5 @@
 import React, { useContext, useEffect } from "react";
+import { useHistory } from "react-router-dom";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
@@ -21,14 +22,16 @@ const useStyles = makeStyles({
 
 export default function ShoppingCartPage() {
   const { state } = useContext(store);
+  const history = useHistory();
+
   const classes = useStyles();
 
   const items = state.cart;
   console.log("ShoppingCartPage", items);
 
-  // useEffect(() => {
-  //   const items = state.cart;
-  // }, [state.cart]);
+  useEffect(() => {
+    return state.cart.length === 0 ? history.push("/") : null;
+  }, [state.cart]);
 
   function ccyFormat(num) {
     return `${num.toFixed(2)}`;
@@ -68,8 +71,8 @@ export default function ShoppingCartPage() {
           <TableBody>
             {items.map((item, index) => {
               const { id, name, price, amount } = item;
-              console.log("mapping cart items");
-              console.log(" id, name, price, amount", id, name, price, amount);
+              // console.log("mapping cart items");
+              // console.log(" id, name, price, amount", id, name, price, amount);
               return (
                 <TableRow key={id}>
                   <TableCell>{index + 1}</TableCell>
