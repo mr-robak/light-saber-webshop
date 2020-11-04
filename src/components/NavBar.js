@@ -8,6 +8,8 @@ import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
 import { Link, NavLink } from "react-router-dom";
 import { store } from "../store/store.js";
+import ShoppingCartRoundedIcon from "@material-ui/icons/ShoppingCartRounded";
+import { Badge } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -46,30 +48,41 @@ export default function NavBar() {
                 color: "white",
               }}
             >
-              PON Lightsabres B.V.
+              Lightsabres Deluxe B.V.
             </NavLink>
           </Typography>
+          <IconButton aria-label="cart">
+            <Link to="/cart">
+              <Badge badgeContent={state.cart.length} color="secondary">
+                <ShoppingCartRoundedIcon
+                  style={{ color: "white" }}
+                  fontSize="large"
+                />
+              </Badge>
+            </Link>
+          </IconButton>
           {!state.user ? (
-            <Button color="inherit">
+            <IconButton color="inherit">
               <NavLink
                 to="/login"
-                style={{ textDecoration: "none", color: "white" }}
+                style={{
+                  textDecoration: "none",
+                  color: "white",
+                  fontSize: "0.8em",
+                }}
                 activeStyle={{
                   fontWeight: "bold",
-                  color: "yellow",
+                  // color: "yellow",
                 }}
               >
                 Login
               </NavLink>
-            </Button>
+            </IconButton>
           ) : (
             <Button color="inherit" onClick={logout}>
               Logout
             </Button>
           )}
-          {/* <Button color="inherit" onClick={logout}>
-            Logout
-          </Button> */}
         </Toolbar>
       </AppBar>
     </div>

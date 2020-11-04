@@ -60,8 +60,19 @@ export default function ProductCard(props) {
     const price = creditMod * forceUsage;
 
     const addToCart = (e) => {
-      console.log("dispatched", props.data.id);
-      dispatch({ type: "ADD_TO_CART", payload: props.data.id });
+      // console.log("dispatched", {
+      //   id: props.data.id,
+      //   name: props.data.name,
+      //   price: price,
+      // });
+      dispatch({
+        type: "ADD_TO_CART",
+        payload: {
+          id: props.data.id,
+          name: props.data.name,
+          price: price,
+        },
+      });
     };
 
     return (

@@ -26,7 +26,7 @@ export default function HomePage() {
   const { state } = useContext(store);
   const classes = useStyles();
 
-  // console.log(state.isLoading);
+  console.log("Cart @ Homepage", state.cart);
 
   const renderCards = () => {
     return (

@@ -58,65 +58,52 @@ const StateProvider = ({ children }) => {
         return newState;
       }
       case "ADD_TO_CART": {
-        const itemId = action.payload;
+        const { id } = action.payload;
 
-        // if (!state.cart) {
-        //   console.log("creating cart in store!");
-        //   console.log("newState", {
-        //     ...state,
-        //     cart: [{ id: itemId, amount: 1 }],
-        //   });
-        //   return { ...state, cart: [{ id: itemId, amount: 1 }] };
-        // }
-
-        // state.cart.find(cartProd => cartProd.id === item.id);
-        // const index = state.cart.findIndex(
-        //   (cartItem) => (cartItem.id = itemId)
-        // );
-        // console.log("old state", state);
-        // console.log("found product in cart at index", index);
-        // if (state.cart && index !== -1) {
-        //   console.log("if index !== -1");
-        //   state.cart[index].amount += 1;
-        //   const newState = { ...state, cart: [...state.cart] };
-        //   console.log("New state after adding found by id", newState);
-        //   return newState;
-        // }
-        // else {
-        //   return { ...state, ...state.cart.push({ id: itemId, amount: 1 }) };
-        // }
-        const product = state.cart.find((p) => p.id === itemId);
-        if (product) {
-          const newCart = state.cart.map((p) =>
-            p.id === itemId ? { ...p, amount: p.amount + 1 } : p
+        // console.log("ADD_TO_CART", action.payload);
+        const productInCart = state.cart.find((product) => product.id === id);
+        if (productInCart) {
+          const updatedCart = state.cart.map((product) =>
+            product.id === id
+              ? { ...product, amount: product.amount + 1 }
+              : product
           );
-          console.log("newCart", newCart);
-          return { ...state, cart: newCart };
+          // console.log("newCart", updatedProduct);
+          return { ...state, cart: [...updatedCart] };
         } else {
-          return { ...state, cart: [...state.cart, { id: itemId, amount: 1 }] };
+          return {
+            ...state,
+            cart: [...state.cart, { ...action.payload, amount: 1 }],
+          };
         }
       }
-      case "ADD_TO_CART1": {
-        const itemId = action.payload;
-        // console.log(itemId);
+      case "DEDUCT_FROM_CART": {
+        const { id } = action.payload;
+        console.log("DEDUCT_FROM_CART", action.payload);
 
-        // if (!state.cart) {
-        //   return { ...state, cart: [itemId] };
-        // }
+        const productInCart = state.cart.find((product) => product.id === id);
 
-        // // state.cart.find(cartProd => cartProd.id === item.id);
-        // const index = state.cart.findIndex(
-        //   (cartItem) => (cartItem.id = itemId)
-        // );
+        const updatedCart =
+          parseInt(productInCart.amount) === 1
+            ? [state.cart.filter((i) => i.id === id)]
+            : state.cart.map((i) =>
+                i.id === id ? { ...i, amount: i.amount - 1 } : i
+              );
+        console.log("newCart after deduct", updatedCart);
+        return { ...state, cart: [...updatedCart] };
 
-        // if (index !== -1) {
-        //   state.cart[index].amount += 1;
-        //   const newState = { ...state, ...state.cart };
-        //   return newState;
-        // } else {
-        //   return { ...state, ...state.cart.push({ id: itemId, amount: 1 }) };
-        // }
-        return state;
+        // const updatedCart = state.cart.reduce((newArr, product, i, oldCart) => {
+        //   console.log("matched?", product.id === id, product.amount == 1);
+        //   console.log(newArr, product, i, oldCart);
+        //   return product.id === id
+        //     ? product.amount == 1
+        //       ? [...newArr]
+        //       : [...newArr, { ...product, amount: product.amount - 1 }]
+        //     : [...newArr, ...product];
+        // }, []);
+        // console.log("newCart after deduct", updatedCart);
+
+        // return state;
       }
 
       default:
