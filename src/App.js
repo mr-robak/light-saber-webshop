@@ -77,10 +77,7 @@ function App() {
         // key={"logged in"}
         onClose={handleClose}
       >
-        <MuiAlert severity="success">
-          {/* `You are logged in, ${state.user.name}` */}
-          TEST
-        </MuiAlert>
+        <MuiAlert severity="success">"Login successful"</MuiAlert>
       </Snackbar>
     );
   };

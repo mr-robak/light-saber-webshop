@@ -34,9 +34,9 @@ export default function HomePage() {
         {!state.user ? null : (
           <GridListTile key="Subheader" cols={2} style={{ height: "auto" }}>
             <ListSubheader component="div" className={classes.listSubheader}>
-              Welcome {state.user.age >= 9.32 ? "Jedi " : "padawan "}
-              {state.user.name}! Your force is at {state.user.age * 10} force
-              units!
+              Welcome {state.user.age >= 666 ? "Lord " : "padawan "}
+              {state.user.name}! Your force is at{" "}
+              {state.user.age === 666 ? 666 : state.user.age * 10} force units!
             </ListSubheader>
           </GridListTile>
         )}

@@ -43,13 +43,20 @@ const StateProvider = ({ children }) => {
         const newState = { ...state, ...sabers, isLoading: false };
         return newState;
       }
-      case "USER_LOGIN": {
-        const newState = { ...state, user: { ...action.payload } };
-        // console.log("reducer", newState);
+      case "ORDERS_FETCHED": {
+        const orders = { ...action.payload };
+        // console.log("payload", action.payload);
+        const newState = { ...state, ...orders, isLoading: false };
         return newState;
       }
+      case "USER_LOGIN": {
+        console.log("user login", action.payload);
+        const newState = { ...state, user: { ...action.payload } };
+        console.log("reducer", newState);
+        return newState;
+        // return state;
+      }
       case "LOGOUT": {
-        console.log("!!!!!!!!!!!", state);
         const newState = {
           isLoading: false,
           sabers: [...state.sabers],
