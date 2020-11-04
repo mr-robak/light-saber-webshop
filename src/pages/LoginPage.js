@@ -34,7 +34,7 @@ export default function LoginPage() {
     e.preventDefault();
     if (name === "") {
       setError({ ...error, name: true });
-    } else if (error.age === "") {
+    } else if (age === "") {
       setError({ ...error, age: true });
     } else if (!error.name && !error.age) {
       dispatch({ type: "USER_LOGIN", payload: { name: name, age: age } });
@@ -94,7 +94,7 @@ export default function LoginPage() {
             value={age}
             onChange={(e) => checkAge(e)}
             error={error.age}
-            helperText={error.age ? "Enter values between 0 ... 140" : null}
+            helperText={error.age ? "Enter values between 1 ... 140" : null}
           />
         </Grid>
         <Button

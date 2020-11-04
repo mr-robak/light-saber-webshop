@@ -58,7 +58,7 @@ const StateProvider = ({ children }) => {
         return newState;
       }
       case "ADD_TO_CART": {
-        const { id } = action.payload;
+        const { id, price } = action.payload;
 
         // console.log("ADD_TO_CART", action.payload);
         const productInCart = state.cart.find((product) => product.id === id);
@@ -91,19 +91,6 @@ const StateProvider = ({ children }) => {
               );
         console.log("newCart after deduct", updatedCart);
         return { ...state, cart: [...updatedCart] };
-
-        // const updatedCart = state.cart.reduce((newArr, product, i, oldCart) => {
-        //   console.log("matched?", product.id === id, product.amount == 1);
-        //   console.log(newArr, product, i, oldCart);
-        //   return product.id === id
-        //     ? product.amount == 1
-        //       ? [...newArr]
-        //       : [...newArr, { ...product, amount: product.amount - 1 }]
-        //     : [...newArr, ...product];
-        // }, []);
-        // console.log("newCart after deduct", updatedCart);
-
-        // return state;
       }
 
       default:
