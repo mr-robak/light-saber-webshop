@@ -45,7 +45,7 @@ function App() {
       .catch(function (error) {
         console.log(error);
       });
-  }, [dispatch, state.sabers]);
+  }, [dispatch]);
 
   // const handleClick = (newState) => () => {
   //   setState({ open: true, ...newState });

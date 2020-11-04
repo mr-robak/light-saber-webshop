@@ -49,7 +49,12 @@ const StateProvider = ({ children }) => {
         return newState;
       }
       case "LOGOUT": {
-        const newState = { isLoading: true, cart: [] };
+        console.log("!!!!!!!!!!!", state);
+        const newState = {
+          isLoading: false,
+          sabers: [...state.sabers],
+          cart: [],
+        };
         // console.log("oldState store", state);
         // console.log("newState store1", newState);
         return newState;
