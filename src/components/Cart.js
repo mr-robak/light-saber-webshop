@@ -54,7 +54,7 @@ export default function Cart(props) {
                   <TableCell>{index + 1}</TableCell>
                   <TableCell>{name}</TableCell>
                   <TableCell align="right">{price.toFixed(2)}</TableCell>
-                  <TableCell align="right"></TableCell>
+                  <TableCell align="right">{amount}</TableCell>
 
                   <TableCell align="right">
                     {(price * amount).toFixed(2)}

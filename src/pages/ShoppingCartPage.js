@@ -30,7 +30,7 @@ export default function ShoppingCartPage() {
   const classes = useStyles();
 
   const items = state.cart;
-  console.log("ShoppingCartPage", items);
+  // console.log("ShoppingCartPage", items);
 
   useEffect(() => {
     return state.cart.length === 0 ? history.push("/") : null;
@@ -48,14 +48,12 @@ export default function ShoppingCartPage() {
 
   const submitOrder = () => {
     const order = { date: new Date(), user: state.user, cart: state.cart };
-    console.log("order", order);
     Axios({
       method: "post",
       url: "http://localhost:4000/orders",
       data: order,
     })
       .then(function (response) {
-        console.log("response", response);
         if (response.status === 200) {
           alert("Order submitted");
           dispatch({ type: "EMPTY_CART" });
@@ -84,8 +82,6 @@ export default function ShoppingCartPage() {
           <TableBody>
             {items.map((item, index) => {
               const { id, name, price, amount } = item;
-              // console.log("mapping cart items");
-              // console.log(" id, name, price, amount", id, name, price, amount);
               return (
                 <TableRow key={id}>
                   <TableCell>{index + 1}</TableCell>

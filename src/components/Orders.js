@@ -26,8 +26,6 @@ const useStyles = makeStyles((theme) => ({
 export default function Orders() {
   const { state } = useContext(store);
 
-  console.log("!!!!!!!!!!!state.orders", state);
-
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
 
@@ -56,22 +54,14 @@ export default function Orders() {
               <Typography className={classes.secondaryHeading}>
                 {`Name: ${order.user.name} | age: ${
                   order.user.age
-                } | Order total: ${order.cart.reduce((acc, cur) => {
-                  return acc + cur.price;
-                }, 0)} Cr`}
+                } | Order total: ${order.cart
+                  .reduce((acc, cur) => {
+                    return acc + cur.price;
+                  }, 0)
+                  .toFixed(2)} Cr`}
               </Typography>
             </AccordionSummary>
-            <AccordionDetails
-              component="div"
-              // style={{ display: "block" }}
-            >
-              {/* {order.cart.map((item, i) => {
-                return (
-                  <div>{`${i + 1}. Name:${item.name}....|....Amount:${
-                    item.amount
-                  }   |.....Price:${item.price}`}</div>
-                );
-              })} */}
+            <AccordionDetails component="div">
               {<Cart data={order.cart} />}
             </AccordionDetails>
           </Accordion>
