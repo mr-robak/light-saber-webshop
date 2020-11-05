@@ -4,15 +4,13 @@ import { green } from "@material-ui/core/colors";
 import { IconButton } from "@material-ui/core";
 import { store } from "../store/store.js";
 
-export default function AddItem(props) {
+export default function AddAddStock(props) {
   const { dispatch } = useContext(store);
 
   const handleOnClick = (e) => {
     dispatch({
-      type: "ADD_TO_CART",
-      payload: {
-        id: props.id,
-      },
+      type: "ADD_TO_STOCK",
+      payload: props.id,
     });
   };
 

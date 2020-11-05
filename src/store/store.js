@@ -105,6 +105,38 @@ const StateProvider = ({ children }) => {
         console.log("EMPTY_CART");
         return { ...state, cart: [] };
       }
+      case "ADD_TO_STOCK": {
+        console.log("ADD_TO_STOCK");
+        const id = parseInt(action.payload);
+        console.log("id", id);
+        console.log("state !!!!!!!", state.sa);
+
+        const newStock = state.sabers.map((saber) => {
+          console.log("!!!!", saber.id === id);
+          return saber.id === id
+            ? { ...saber, available: saber.available + 1 }
+            : saber;
+        });
+        console.log("newStock", newStock);
+        return { ...state, sabers: newStock };
+      }
+      case "DEDUCT_FROM_STOCK": {
+        console.log("DEDUCT_FROM_STOCK");
+        const id = parseInt(action.payload);
+        console.log("id", id);
+        console.log("state !!!!!!!", state.sa);
+
+        const newStock = state.sabers.map((saber) => {
+          console.log("!!!!", saber.id === id);
+          return saber.id === id
+            ? saber.available === 0
+              ? { ...saber, available: 0 }
+              : { ...saber, available: saber.available - 1 }
+            : saber;
+        });
+        console.log("newStock", newStock);
+        return { ...state, sabers: newStock };
+      }
 
       default:
         return state;

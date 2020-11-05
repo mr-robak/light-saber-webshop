@@ -45,6 +45,11 @@ export default function AdminLogin() {
             });
 
             dispatch({
+              type: "PRODUCTS_FETCHED",
+              payload: response.data.products,
+            });
+
+            dispatch({
               type: "USER_LOGIN",
               payload: {
                 name: response.data.user.name,
