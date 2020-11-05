@@ -9,6 +9,7 @@ import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 import Orders from "./Orders.js";
 import Stock from "./Stock.js";
+import AddProduct from "./AddProduct.js";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -88,7 +89,7 @@ export default function Dashboard() {
         <Stock />
       </TabPanel>
       <TabPanel value={value} index={2}>
-        Add product
+        <AddProduct />
       </TabPanel>
     </div>
   );

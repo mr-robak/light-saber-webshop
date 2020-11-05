@@ -21,16 +21,7 @@ export default function LoginPage() {
   const [age, setAge] = useState("");
   const [error, setError] = useState({ name: false, age: false });
 
-  // console.log("state at LoginPage", state);
-
-  // useEffect(() => {
-  //   if (token !== null) {
-  //     history.push("/");
-  //   }
-  // }, [token, history]);
-
   const submitForm = (e) => {
-    // console.log("event fired");
     e.preventDefault();
     if (name === "") {
       setError({ ...error, name: true });
@@ -43,8 +34,6 @@ export default function LoginPage() {
       history.push("/");
     }
   };
-
-  // console.log("name", name);
 
   const checkAge = (e) => {
     e.preventDefault();
