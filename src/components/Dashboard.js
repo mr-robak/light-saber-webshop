@@ -1,6 +1,4 @@
-import React, { useContext } from "react";
-import { store } from "../store/store.js";
-
+import React from "react";
 import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/core/styles";
 import Tabs from "@material-ui/core/Tabs";
@@ -57,10 +55,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function Dashboard() {
-  const { state, dispatch } = useContext(store);
-
-  // console.log(state.orders);
-
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
 

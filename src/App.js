@@ -1,41 +1,30 @@
 import { useContext, useEffect, useState } from "react";
 import { Route, Switch } from "react-router-dom";
 import { store } from "./store/store.js";
-import data from "./data/sabers.json";
-
 import LoginPage from "./pages/LoginPage";
-import ProductPage from "./pages/ProductPage";
 import HomePage from "./pages/HomePage";
 import NavBar from "./components/NavBar";
 import AdminDashboard from "./pages/AdminDashboard";
-
-import "./App.css";
 import { makeStyles, Snackbar } from "@material-ui/core";
 import MuiAlert from "@material-ui/lab/Alert";
 import ShoppingCartPage from "./pages/ShoppingCartPage.js";
 import Axios from "axios";
+import "./App.css";
 
 const useStyles = makeStyles({
   root: {
     flexGrow: 1,
-    // maxWidth: 280,
-    // color: "black",
     marginTop: "15%",
   },
   notification: {
     marginTop: 50,
-    // backgroundColor: "green",
-    // color: "green",
   },
 });
-
-// console.log("!!!!!!!!!!!!!!!", data);
 
 function App() {
   const classes = useStyles();
 
   const { state, dispatch } = useContext(store);
-  // console.log("App", state);
 
   useEffect(() => {
     Axios.get("http://localhost:4000/products ")
@@ -47,10 +36,6 @@ function App() {
       });
   }, [dispatch]);
 
-  // const handleClick = (newState) => () => {
-  //   setState({ open: true, ...newState });
-  // };
-
   const [open, setOpen] = useState(true);
 
   const handleClose = (e) => {
@@ -61,7 +46,6 @@ function App() {
 
   const notificationAlert = () => {
     if (!state.user) {
-      // setOpen(true);
       console.log("state.user", state.user);
       return null;
     }
@@ -71,10 +55,6 @@ function App() {
         className={classes.notification}
         anchorOrigin={{ vertical: "top", horizontal: "center" }}
         open={open}
-        // autoHideDuration={6000}
-        // onClose={(e) => setOpen(false)}
-        // message={}
-        // key={"logged in"}
         onClose={handleClose}
       >
         <MuiAlert severity="success">"Login successful"</MuiAlert>
@@ -99,13 +79,11 @@ function App() {
         </a>
       </header> */}
       <NavBar />
-      {/* <p>Login successful</p>  */}
       {state.user ? notificationAlert() : null}
       <Switch>
         <Route path="/cart" component={ShoppingCartPage} />
         <Route path="/admin" component={AdminDashboard} />
         <Route path="/login" component={LoginPage} />
-        <Route path="/product/:id" component={ProductPage} />
         <Route path="/" component={HomePage} />
       </Switch>
     </div>

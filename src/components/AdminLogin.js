@@ -1,7 +1,6 @@
 import { Button, Grid, makeStyles, TextField } from "@material-ui/core";
 import Axios from "axios";
 import React, { useContext, useState } from "react";
-import { Link, useHistory } from "react-router-dom";
 import { store } from "../store/store.js";
 
 const useStyles = makeStyles({
@@ -14,23 +13,20 @@ const useStyles = makeStyles({
 });
 
 export default function AdminLogin() {
-  const history = useHistory();
   const classes = useStyles();
-  const { state, dispatch } = useContext(store);
+  const { dispatch } = useContext(store);
 
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState({ name: false, password: false });
 
   const submitForm = (e) => {
-    console.log("event fired");
     e.preventDefault();
     if (name === "") {
       setError({ ...error, name: true });
     } else if (password === "") {
       setError({ ...error, password: true });
     } else if (!error.name && !error.password) {
-      console.log("!!!!!!!!!!!");
       Axios({
         method: "post",
         url: "http://localhost:4000/admin",
@@ -67,11 +63,8 @@ export default function AdminLogin() {
           setPassword("");
           console.log("error", error);
         });
-      console.log("order submitted");
     }
   };
-
-  // console.log("name", name);
 
   return (
     <div className={classes.root}>

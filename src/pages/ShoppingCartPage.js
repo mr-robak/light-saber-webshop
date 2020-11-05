@@ -14,7 +14,6 @@ import DeductItem from "../components/DeductItem.js";
 import AddItem from "../components/AddItem.js";
 
 import { store } from "../store/store.js";
-import { Alert } from "@material-ui/lab";
 
 const useStyles = makeStyles({
   table: {
@@ -35,7 +34,7 @@ export default function ShoppingCartPage() {
 
   useEffect(() => {
     return state.cart.length === 0 ? history.push("/") : null;
-  }, [state.cart]);
+  });
 
   function ccyFormat(num) {
     return `${num.toFixed(2)}`;
@@ -66,8 +65,6 @@ export default function ShoppingCartPage() {
       .catch(function (error) {
         console.log("error", error);
       });
-
-    // console.log("order submitted");
   };
 
   return (

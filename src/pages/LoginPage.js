@@ -6,8 +6,6 @@ import { store } from "../store/store.js";
 const useStyles = makeStyles({
   root: {
     flexGrow: 1,
-    // maxWidth: 280,
-    // color: "black",
     marginTop: "15%",
   },
 });
@@ -15,7 +13,7 @@ const useStyles = makeStyles({
 export default function LoginPage() {
   const history = useHistory();
   const classes = useStyles();
-  const { state, dispatch } = useContext(store);
+  const { dispatch } = useContext(store);
 
   const [name, setName] = useState("");
   const [age, setAge] = useState("");

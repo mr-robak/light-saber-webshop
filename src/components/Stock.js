@@ -9,7 +9,6 @@ import {
   TableCell,
   TableContainer,
   TableRow,
-  Typography,
 } from "@material-ui/core";
 import SaveIcon from "@material-ui/icons/Save";
 
@@ -27,7 +26,6 @@ export default function Stock() {
   const { state } = useContext(store);
   const classes = useStyles();
 
-  console.log(state.sabers);
   return (
     <div>
       <TableContainer component={Paper}>

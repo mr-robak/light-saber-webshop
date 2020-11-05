@@ -7,15 +7,11 @@ import {
   GridListTile,
   ListSubheader,
   makeStyles,
-  Typography,
 } from "@material-ui/core";
 
 const useStyles = makeStyles({
   root: {
     flexGrow: 1,
-    // maxWidth: 280,
-    // color: "black",
-    // marginTop: "15%",
   },
   listSubheader: {
     fontSize: "1.3em",
@@ -34,7 +30,12 @@ export default function HomePage() {
         {!state.user ? null : (
           <GridListTile key="Subheader" cols={2} style={{ height: "auto" }}>
             <ListSubheader component="div" className={classes.listSubheader}>
-              Welcome {state.user.age >= 666 ? "Lord " : "padawan "}
+              Welcome{" "}
+              {state.user.age >= 666
+                ? "Lord "
+                : state.user.age >= 9.2
+                ? "Jedi Master "
+                : "padawan "}
               {state.user.name}! Your force is at{" "}
               {state.user.age === 666 ? 666 : state.user.age * 10} force units!
             </ListSubheader>
@@ -42,7 +43,6 @@ export default function HomePage() {
         )}
 
         {state.sabers.map((product, index) => {
-          // console.log("rendered at HomePage", index, product.name);
           return <ProductCard data={product} key={index} />;
         })}
       </GridList>

@@ -1,6 +1,4 @@
-import React, { useContext, useEffect } from "react";
-import { useHistory } from "react-router-dom";
-import Axios from "axios";
+import React from "react";
 
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
@@ -9,12 +7,7 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
-import { Button, makeStyles } from "@material-ui/core";
-import DeductItem from "../components/DeductItem.js";
-import AddItem from "../components/AddItem.js";
-
-import { store } from "../store/store.js";
-import { Alert } from "@material-ui/lab";
+import { makeStyles } from "@material-ui/core";
 
 const useStyles = makeStyles({
   table: {
@@ -25,15 +18,8 @@ const useStyles = makeStyles({
 });
 
 export default function Cart(props) {
-  //   console.log("props at Cart", props);
-  const { state, dispatch } = useContext(store);
-  const history = useHistory();
-
   const classes = useStyles();
-
-  //   const items = state.orders.cart;
   const items = props.data;
-  console.log("Cart component---------->", items);
 
   function ccyFormat(num) {
     return `${num.toFixed(2)}`;
