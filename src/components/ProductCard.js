@@ -18,8 +18,7 @@ import { store } from "../store/store.js";
 
 const useStyles = makeStyles({
   root: {
-    maxWidth: 250,
-    // color: "black",
+    maxWidth: 230,
     margin: 10,
   },
 });
@@ -39,12 +38,10 @@ export default function ProductCard(props) {
       .catch(function (error) {
         console.log(error);
       });
-  }, [id]);
+  }, [id, crystal.planet]);
 
   let creditMod;
   let forceMod;
-
-  // console.log("card props", props.data);
 
   const assignImage = () => {
     switch (crystal.color) {
@@ -64,9 +61,6 @@ export default function ProductCard(props) {
         break;
     }
   };
-  //////////////////////////////////
-  // console.log("CARD!!!!!", state);
-  ///////////////////////////////////
 
   const showPrice = () => {
     const force = state.user.age * 10;
@@ -74,11 +68,6 @@ export default function ProductCard(props) {
     const price = creditMod * forceUsage;
 
     const addToCart = (e) => {
-      // console.log("dispatched", {
-      //   id: props.data.id,
-      //   name: props.data.name,
-      //   price: price,
-      // });
       dispatch({
         type: "ADD_TO_CART",
         payload: {
@@ -110,16 +99,13 @@ export default function ProductCard(props) {
   return (
     <Card className={classes.root}>
       <CardActionArea>
-        {/* <Link to={`product/${id}`}> */}
         <CardMedia
           component="img"
           alt={name}
           height="140"
-          // image={`${crystal.color}1.jpg`}
           image={assignImage()}
           title={name}
         />
-        {/* </Link> */}
         <CardContent>
           <Typography gutterBottom variant="h5" component="h2">
             {name}
