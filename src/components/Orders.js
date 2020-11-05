@@ -6,6 +6,7 @@ import AccordionSummary from "@material-ui/core/AccordionSummary";
 import Typography from "@material-ui/core/Typography";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import { store } from "../store/store.js";
+import Cart from "../components/Cart";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -25,45 +26,13 @@ const useStyles = makeStyles((theme) => ({
 export default function Orders() {
   const { state } = useContext(store);
 
-  console.log(state.orders);
+  console.log("!!!!!!!!!!!state.orders", state);
 
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
 
   const handleChange = (panel) => (event, isExpanded) => {
     setExpanded(isExpanded ? panel : false);
-  };
-
-  const renderOrders = () => {
-    state.orders.map((order, i) => {
-      return (
-        <Accordion
-          expanded={expanded === `panel${i + 1}`}
-          onChange={handleChange(`panel${i + 1}`)}
-        >
-          <AccordionSummary
-            expandIcon={<ExpandMoreIcon />}
-            aria-controls={`panel${i + 1}bh-content`}
-            id={`panel${i + 1}bh-header`}
-          >
-            <Typography className={classes.heading}>order.date</Typography>
-            <Typography className={classes.secondaryHeading}>
-              {`Padawan name: ${order.user.name}, age: ${
-                order.user.age
-              } ...... Total amount:${
-                (order.cart.reduce((acc, cur) => acc + cur), 0)
-              }`}
-            </Typography>
-          </AccordionSummary>
-          <AccordionDetails>
-            <Typography>
-              Nulla facilisi. Phasellus sollicitudin nulla et quam mattis
-              feugiat. Aliquam eget maximus est, id dignissim quam.
-            </Typography>
-          </AccordionDetails>
-        </Accordion>
-      );
-    });
   };
 
   return (
@@ -92,14 +61,18 @@ export default function Orders() {
                 }, 0)} Cr`}
               </Typography>
             </AccordionSummary>
-            <AccordionDetails component="div" style={{ display: "block" }}>
-              {order.cart.map((item, i) => {
+            <AccordionDetails
+              component="div"
+              // style={{ display: "block" }}
+            >
+              {/* {order.cart.map((item, i) => {
                 return (
                   <div>{`${i + 1}. Name:${item.name}....|....Amount:${
                     item.amount
                   }   |.....Price:${item.price}`}</div>
                 );
-              })}
+              })} */}
+              {<Cart data={order.cart} />}
             </AccordionDetails>
           </Accordion>
         );
